@@ -1,0 +1,104 @@
+#Combobox {
+  width: 250px;
+  height: 33px;
+  border: 1px solid #000000;
+  margin: 50px auto;
+  position: relative;
+  border-radius: 5px;
+}
+#Combobox #Text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#Combobox #Text p {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  padding: 0 0 0 10px;
+  margin: 0;
+  width: 80%;
+  height: 100%;
+  transform: translateY(-50%);
+  overflow: hidden;
+  line-height: 33px;
+}
+#Combobox #Text p:focus {
+  border: none;
+  outline: none;
+}
+#Combobox #Wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(103%);
+  width: 100%;
+  height: auto;
+  border: 1px solid #000000;
+  border-radius: 0 0 5px 5px;
+  transition: height 2s;
+  overflow-y: hidden;
+}
+#Combobox #Wrapper .item {
+  padding: 10px 8px 10px 40px;
+  cursor: pointer;
+  position: relative;
+}
+#Combobox #Wrapper .item.active {
+  background-color: #019160;
+  color: white;
+}
+#Combobox #Wrapper .item:not(.active):hover {
+  background-color: #EAEBEF;
+}
+#Combobox #Toggler {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15%;
+  height: 33px;
+  border: none;
+  border-left: 1px solid #000000;
+  z-index: 99999;
+}
+#Combobox #Toggler span {
+  position: absolute;
+  width: 15%;
+  height: 15%;
+  top: 35%;
+  left: 40%;
+  transform: rotate(-45deg);
+  border: solid #000000;
+  padding: 1px;
+  border-width: 0 0 2px 2px;
+}
+
+.active {
+  background-color: #019160;
+  color: #ffffff;
+}
+.active::before {
+  content: "";
+  position: absolute;
+  top: 33%;
+  left: 5%;
+  width: 9px;
+  height: 3px;
+  border: solid #ffffff;
+  padding: 1px;
+  border-width: 0 0 2px 2px;
+  transform: rotate(-45deg);
+}
+
+.collapse {
+  height: 0px !important;
+  border: none !important;
+}
+
+.focus {
+  border-color: #019160 !important;
+}
+
+/*# sourceMappingURL=style.css.map */
