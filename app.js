@@ -46,6 +46,7 @@ text.on('focusin', () => {
 });
 
 text.on('focusout', (e) => {
+    console.log(e.originalEvent);
     removeFocus();
 });
 
