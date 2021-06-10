@@ -6,19 +6,19 @@ class Combobox {
                 label: "Nam",
                 value: 0,
                 ignore: false,
-                active: false
+                active: false,
             },
             {
                 label: "Nữ",
                 value: 1,
                 ignore: false,
-                active: false
+                active: false,
             },
             {
                 label: "Khác",
                 value: 2,
                 ignore: false,
-                active: false
+                active: false,
             },
         ];
     }
@@ -26,7 +26,7 @@ class Combobox {
 
 var boxObj = new Combobox(), //Khởi tạo đối tượng Combobox
     wrapper = $("#Wrapper"),
-    text = $("#Text"),
+    cbxGender = $("#cbxGender"),
     toggler = $("#Toggler"),
     combobox = $("#Combobox");
 
@@ -40,13 +40,15 @@ $(document).ready(() => {
 $(document).on("click", ".item", function() {
     $(".item").removeClass("active"); //Bỏ hết lớp active khỏi các item trong combobox
     $(this).addClass("active"); //Thêm lớp active vào tùy chọn hiện tại
-    var currentItemVal = parseInt($(this).attr('value')); //Lấy thuộc tính value của item đuọc chọn
-    boxObj.items.map(function(el) { //Duyệt qua tất cả các tùy chọn
+    var currentItemVal = parseInt($(this).attr("value")); //Lấy thuộc tính value của item đuọc chọn
+    boxObj.items.map(function(el) {
+        //Duyệt qua tất cả các tùy chọn
         //Nếu thuộc tính value của phần tử đang lặp bằng với thuộc tính value của phần tử vừa chọn
-        if (el.value === currentItemVal) el.active = true; //Đặt thuộc tính active của phần tử đang lặp thánh true
+        if (el.value === currentItemVal) el.active = true;
+        //Đặt thuộc tính active của phần tử đang lặp thánh true
         else el.active = false; //Đặt thuộc tính active của phần tử đang lặp thánh false
     });
-    text.find("p").text($(this).text()); //Gán text của phần tử được chọn cho phần hiển thị của combobox
+    cbxGender.text($(this).text()); //Gán text của phần tử được chọn cho phần hiển thị của combobox
     wrapper.addClass("collapse"); //Ẩn trình đơn các lựa chọn
 });
 
@@ -58,8 +60,8 @@ toggler.click(() => {
 });
 
 //Sự kiện focus khi nhập liệu trên combobox
-text.on("focusin", addFocus);
-text.on("focusout", removeFocus);
+cbxGender.on("focusin", addFocus);
+cbxGender.on("focusout", removeFocus);
 
 //Thêm viền cho combobox
 function addFocus() {
@@ -94,7 +96,7 @@ $(document).on("keydown", function(e) {
         if (itemIndex === itemActive) itemIndex += 1;
         itemIndex = itemIndex == itemsLength ? 0 : itemIndex;
     }
-    //Phím mũi tên xuống 
+    //Phím mũi tên xuống
     else if (e.keyCode === 38) {
         itemIndex -= 1;
         itemIndex = itemIndex < 0 ? itemsLength - 1 : itemIndex; //Nếu nhỏ hơn phần tử đầu tiên (0) thì đưa về phàn tử cuối cúng (2)
@@ -102,9 +104,9 @@ $(document).on("keydown", function(e) {
     } else itemIndex = itemIndex;
 
     if (e.keyCode === 38 || e.keyCode === 40) {
-        text.find("p").text($(".item").eq(itemIndex).text()); //Đặt giá trị của combobox bằng với phần tử đang đc trỏ tới
+        cbxGender.text($(".item").eq(itemIndex).text()); //Đặt giá trị của combobox bằng với phần tử đang đc trỏ tới
         $(".item").eq(itemIndex).addClass("selected");
-        text.find('p').blur(); //Bỏ focus khỏi vùng nhập liệu trên combobox
+        cbxGender.blur(); //Bỏ focus khỏi vùng nhập liệu trên combobox
     }
 
     //Nhấn phím enter
@@ -113,25 +115,26 @@ $(document).on("keydown", function(e) {
         $(".item").eq(itemIndex).addClass("active");
         $(".item").eq(itemIndex).click();
     }
-
+    //Bỏ phần viền mặc định của nút mũi tên
     toggler.css({
         outline: "none",
     });
 });
 
 //Sự kiện nhập liệu trên combobox
-text.find("p").on("input", function(e) {
+cbxGender.on("input", function(e) {
     if (e.keyCode === 13) e.preventDefault(); //Hủy hành động xuống dòng khi nhấn enter
     var val = $(this).text();
     $(boxObj.items).each((i, el) => {
         //Nếu văn bản đc nhập khớp với nhãn của các lựa chọn
-        if (el.label.startsWith(val)) el.ignore = false; //Đưa phần tử ra khỏi danh sách bỏ qua
+        if (el.label.startsWith(val)) el.ignore = false;
+        //Đưa phần tử ra khỏi danh sách bỏ qua
         else el.ignore = true;
     });
     wrapper.empty();
     renderItems();
 
-    if (wrapper.hasClass('collapse')) wrapper.removeClass('collapse');
+    if (wrapper.hasClass("collapse")) wrapper.removeClass("collapse");
 });
 
 //Thực hiện render các phần tử trong combobox
@@ -144,7 +147,7 @@ function renderItems() {
                 `<div class="item" tabindex="0" value="${el.value}">${el.label}</div>`
             );
             //Nếu là phần tử đang được chọn
-            if (el.active === true) item.addClass('active'); //Thêm lớp active
+            if (el.active === true) item.addClass("active"); //Thêm lớp active
             item.on("focusout", removeFocus);
             wrapper.append(item);
         }
@@ -155,7 +158,20 @@ function renderItems() {
 function resetBox() {
     wrapper.empty();
     boxObj.items.map((el, i) => {
-        return el.ignore = false;
+        return (el.ignore = false);
     });
     renderItems();
 }
+
+//Lấy text hiển thị của item được chọn hiện tại
+$.fn.getText = function() {
+    console.log($(".active").eq(0).text());
+};
+//Lấy giá trị của item được chọn hiện tại
+$.fn.getValue = function() {
+    console.log(parseInt($(".active").eq(0).attr("value")));
+};
+//Lấy dữ liệu combobox
+$.fn.getData = function() {
+    console.log(boxObj.items);
+};
